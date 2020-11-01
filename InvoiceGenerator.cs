@@ -7,6 +7,7 @@ namespace CabInvoiceGenerator
     public class InvoiceGenerator
     {
         RideType rideType;
+        RideRepository rideRepository;
 
         //Constants.
         private readonly double MINIMUM_COST_PER_KM;
@@ -98,6 +99,39 @@ namespace CabInvoiceGenerator
                 }
             }
             return new InvoiceSummary(rides.Length, totalFare);
+        }
+
+        public void AddRides(string userId, Ride[] rides)
+        {
+            try
+            {
+                //Adding Ride To The Specified User.
+                rideRepository.AddRide(userId, rides);
+            }
+            catch (CabInvoiceException)
+            {
+                if (rides == null)
+                {
+                    throw new CabInvoiceException(CabInvoiceException.ExceptionType.NULL_RIDES, "Rides Are Null");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Function to Get Summary By UserId.
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public InvoiceSummary GetInvoiceSummary(string userId)
+        {
+            try
+            {
+                return this.CalculateFare(rideRepository.GetRides(userId));
+            }
+            catch (CabInvoiceException)
+            {
+                throw new CabInvoiceException(CabInvoiceException.ExceptionType.INVALID_USER_ID, "Invalid UserID");
+            }
         }
     }
 }
