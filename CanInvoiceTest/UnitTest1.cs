@@ -18,7 +18,7 @@ namespace CanInvoiceTest
         [Test]
         public void GivenDistanceAndTimeShouldReturnTotalFare()
         {
-            InvoiceGenerator invoiceGenerator = new InvoiceGenerator(RideType.NORMAL);
+            InvoiceGenerator invoiceGenerator = new InvoiceGenerator(RideType.PREMIUM);
             double distance = 2.0;
             int time = 5;
             double fare = invoiceGenerator.CalculateFare(distance, time);
@@ -29,7 +29,7 @@ namespace CanInvoiceTest
         [Test]
         public void GivenMultipleRideShouldReturnTotalFare()
         {
-            InvoiceGenerator invoiceGenerator = new InvoiceGenerator(RideType.NORMAL);
+            InvoiceGenerator invoiceGenerator = new InvoiceGenerator(RideType.PREMIUM);
             Ride[] rides = { new Ride(2.0, 5), new Ride(0.1, 5) };
             InvoiceSummary summary = invoiceGenerator.CalculateFare(rides);
             InvoiceSummary expectedSummary = new InvoiceSummary(2, 30.0);
@@ -39,7 +39,7 @@ namespace CanInvoiceTest
         [Test]
         public void GivenMultipleRidesShouldReturnAverageFare()
         {
-            InvoiceGenerator invoiceGenerator = new InvoiceGenerator(RideType.NORMAL);
+            InvoiceGenerator invoiceGenerator = new InvoiceGenerator(RideType.PREMIUM);
             Ride[] rides = { new Ride(2.0, 5), new Ride(0.1, 1) };
 
             InvoiceSummary summary = invoiceGenerator.CalculateFare(rides);
@@ -51,7 +51,7 @@ namespace CanInvoiceTest
         [Test]
         public void GivenUserIdToreturnlistofRide()
         {
-            InvoiceGenerator invoiceGenerator = new InvoiceGenerator(RideType.NORMAL);
+            InvoiceGenerator invoiceGenerator = new InvoiceGenerator(RideType.PREMIUM);
             Ride[] rides = { new Ride(2.0, 5), new Ride(0.1, 1) };
             invoiceGenerator.AddRides("abc", rides);
 
